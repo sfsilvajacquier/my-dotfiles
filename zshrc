@@ -1,35 +1,6 @@
 # --- Oh My Zsh Config ---
 ZSH=$HOME/.oh-my-zsh
-# --- Custom 'Carp' Prompt ---
-# Disable default theme
-ZSH_THEME=""
 
-# Custom Prompt Logic (Red/White Circle + Python Env)
-# \u25cf is the circle character
-prompt_carp_setup() {
-  # Red if error (!= 0), White if success (0)
-  local circle="%(?:%{$fg_bold[white]%}●%{$reset_color%}:%{$fg_bold[red]%}●%{$reset_color%})"
-  
-  # Directory color
-  local dir="%{$fg_bold[cyan]%}%c%{$reset_color%}"
-  
-  # Python Virtual Env (Snake + Name)
-  local venv=""
-  if [[ -n "$VIRTUAL_ENV" ]]; then
-    venv=" %{$fg[yellow]%}🐍 $(basename "$VIRTUAL_ENV")%{$reset_color%}"
-  fi
-  
-  PROMPT="${circle} ${dir}${venv} $(git_prompt_info)"
-}
-
-# Git prompt settings
-ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[white]%}git:(%{$fg[red]%}"
-ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%}) %{$fg[yellow]%}✗"
-ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
-
-# Apply the prompt
-prompt_carp_setup
 
 # Optimized plugin list
 plugins=(git gitfast last-working-dir zsh-syntax-highlighting zsh-autosuggestions)
@@ -66,3 +37,29 @@ fi
 if [[ -z "$VIRTUAL_ENV" && -f "$HOME/.virtualenvs/CARP/bin/activate" ]]; then
   source "$HOME/.virtualenvs/CARP/bin/activate"
 fi
+
+# --- 10. Custom Prompt (Post-Plugin Load) ---
+# Use precmd to ensure prompt updates on every command
+prompt_carp_precmd() {
+  # Red if error (!= 0), White if success (0)
+  local circle="%(?:%{$fg_bold[white]%}●%{$reset_color%}:%{$fg_bold[red]%}●%{$reset_color%})"
+  local dir="%{$fg_bold[cyan]%}%c%{$reset_color%}"
+  
+  local venv=""
+  if [[ -n "$VIRTUAL_ENV" ]]; then
+    venv=" %{$fg[yellow]%}🐍 $(basename "$VIRTUAL_ENV")%{$reset_color%}"
+  fi
+  
+  # Check if git_prompt_info function exists (from git plugin)
+  local git_info=""
+  if type git_prompt_info > /dev/null 2>&1; then
+    git_info="$(git_prompt_info)"
+  fi
+
+  PROMPT="${circle} ${dir}${venv} ${git_info} "
+}
+
+# Hook logic to precmd
+autoload -U add-zsh-hook
+add-zsh-hook precmd prompt_carp_precmd
+
