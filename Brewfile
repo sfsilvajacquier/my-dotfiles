@@ -1,5 +1,5 @@
 # Taps
-tap "homebrew/bundle"
+
 
 # Binaries
 brew "git"

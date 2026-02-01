@@ -42,7 +42,7 @@ if ! command -v brew &> /dev/null; then
   # M1 Pro / Apple Silicon PATH setup
   if [[ "$ARCH" == 'arm64' ]]; then
     echo "-----> Configuring Homebrew for Apple Silicon..."
-    if ! grep -q "opt/homebrew/bin/brew shellenv" $HOME/.zprofile; then
+    if ! grep -q "opt/homebrew/bin/brew shellenv" $HOME/.zprofile 2> /dev/null; then
         echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> $HOME/.zprofile
     fi
     eval "$(/opt/homebrew/bin/brew shellenv)"
