@@ -1,0 +1,29 @@
+{
+    "editor.minimap.enabled": false,
+    "window.zoomLevel": -1,
+    "editor.rulers": [
+        120
+    ],
+    "python.languageServer": "Default",
+    "files.exclude": {
+        "**/__pycache__": true,
+        "**/*.pyc": true,
+        "**/.pytest_cache": true,
+        "**/.venv": false
+    },
+    "security.workspace.trust.untrustedFiles": "open",
+    "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+    "python.terminal.activateEnvInSelectedTerminal": true,
+    "python.locatorPyenv": "off",
+    "python.analysis.diagnosticMode": "workspace",
+    "python.interpreter.infoVisibility": "always",
+    "[python]": {
+        "editor.defaultFormatter": "charliermarsh.ruff",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.fixAll.ruff": "explicit",
+            "source.organizeImports.ruff": "explicit"
+        }
+    },
+    "ruff.nativeServer": "on"
+}

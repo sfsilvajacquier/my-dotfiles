@@ -1,0 +1,4 @@
+# Custom Aliases
+
+# Initialize uv project with direnv
+alias uv-init='uv init && echo "layout uv" > .envrc && direnv allow'
