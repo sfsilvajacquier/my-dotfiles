@@ -1,6 +1,29 @@
 # --- Oh My Zsh Config ---
 ZSH=$HOME/.oh-my-zsh
-ZSH_THEME="robbyrussell"
+# --- Custom 'Carp' Prompt ---
+# Disable default theme
+ZSH_THEME=""
+
+# Custom Prompt Logic (Red/White Circle)
+# \u25cf is the circle character
+prompt_carp_setup() {
+  # Red if error (!= 0), White if success (0)
+  local circle="%(?:%{$fg_bold[white]%}●%{$reset_color%}:%{$fg_bold[red]%}●%{$reset_color%})"
+  
+  # Directory color
+  local dir="%{$fg_bold[cyan]%}%c%{$reset_color%}"
+  
+  PROMPT="${circle} ${dir} $(git_prompt_info)"
+}
+
+# Git prompt settings
+ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[white]%}git:(%{$fg[red]%}"
+ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%}) %{$fg[yellow]%}✗"
+ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
+
+# Apply the prompt
+prompt_carp_setup
 
 # Optimized plugin list
 plugins=(git gitfast last-working-dir zsh-syntax-highlighting zsh-autosuggestions)

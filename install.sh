@@ -105,6 +105,7 @@ else
 fi
 
 # Symlink VS Code settings from vscode/ directory
+mkdir -p "$CODE_PATH"
 for name in settings.json keybindings.json; do
   target="$CODE_PATH/$name"
   backup $target
