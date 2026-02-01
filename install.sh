@@ -148,19 +148,19 @@ if [[ `uname` =~ "Darwin" ]]; then
 fi
 
 # Refresh terminal session
-# --- 9. Global 'Carp' Environment ---
-echo "-----> Setting up Global 'Carp' Python Environment..."
+# --- 9. Global 'CARP' Environment ---
+echo "-----> Setting up Global 'CARP' Python Environment..."
 export UV_PYTHON_INSTALL_DIR="$HOME/.local/share/uv/python"
 # Create central venv directory
 mkdir -p "$HOME/.virtualenvs"
 
-# Create 'carp' environment with Python 3.12 (downloads if needed)
-if [ ! -d "$HOME/.virtualenvs/carp" ]; then
-    uv venv "$HOME/.virtualenvs/carp" --python 3.12
+# Create 'CARP' environment with Python 3.12 (downloads if needed)
+if [ ! -d "$HOME/.virtualenvs/CARP" ]; then
+    uv venv "$HOME/.virtualenvs/CARP" --python 3.12
 fi
 
-# Install global tools into 'carp'
-source "$HOME/.virtualenvs/carp/bin/activate"
+# Install global tools into 'CARP'
+source "$HOME/.virtualenvs/CARP/bin/activate"
 uv pip install jupyterlab pandas matplotlib
 
 # Refresh terminal session

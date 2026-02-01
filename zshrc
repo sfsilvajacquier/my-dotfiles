@@ -61,8 +61,8 @@ fi
 # Load your custom aliases
 [[ -f "$HOME/.aliases" ]] && source "$HOME/.aliases"
 
-# --- Global Environment (Carp) ---
-# Automatically activate 'carp' if it exists and we aren't already in a venv
-if [[ -z "$VIRTUAL_ENV" && -f "$HOME/.virtualenvs/carp/bin/activate" ]]; then
-  source "$HOME/.virtualenvs/carp/bin/activate"
+# --- Global Environment (CARP) ---
+# Automatically activate 'CARP' if it exists and we aren't already in a venv
+if [[ -z "$VIRTUAL_ENV" && -f "$HOME/.virtualenvs/CARP/bin/activate" ]]; then
+  source "$HOME/.virtualenvs/CARP/bin/activate"
 fi
