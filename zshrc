@@ -41,14 +41,10 @@ fi
 # --- 10. Custom Prompt (Post-Plugin Load) ---
 # Use precmd to ensure prompt updates on every command
 prompt_carp_precmd() {
-  # Red if error (!= 0), White if success (0)
-  local circle="%(?:%{$fg_bold[white]%}●%{$reset_color%}:%{$fg_bold[red]%}●%{$reset_color%})"
+  # Left Side: Arrow (Green/Red) + Directory + Git
+  # ➜ is the arrow character
+  local arrow="%(?:%{$fg_bold[green]%}➜ %{$reset_color%}:%{$fg_bold[red]%}➜ %{$reset_color%})"
   local dir="%{$fg_bold[cyan]%}%c%{$reset_color%}"
-  
-  local venv=""
-  if [[ -n "$VIRTUAL_ENV" ]]; then
-    venv=" %{$fg[yellow]%}🐍 $(basename "$VIRTUAL_ENV")%{$reset_color%}"
-  fi
   
   # Check if git_prompt_info function exists (from git plugin)
   local git_info=""
@@ -56,7 +52,19 @@ prompt_carp_precmd() {
     git_info="$(git_prompt_info)"
   fi
 
-  PROMPT="${circle} ${dir}${venv} ${git_info} "
+  PROMPT="${arrow} ${dir} ${git_info}"
+
+  # Right Side: Time + Venv [ 🐍 NAME ]
+  local venv=""
+  if [[ -n "$VIRTUAL_ENV" ]]; then
+    # Brackets white, Name yellow
+    venv="[ 🐍 %{$fg[yellow]%}$(basename "$VIRTUAL_ENV")%{$reset_color%} ]"
+  fi
+  
+  # Time format: 12:31PM
+  local time_info="%{$fg[white]%}%D{%I:%M%p}%{$reset_color%}"
+  
+  RPROMPT="${time_info} ${venv}"
 }
 
 # Hook logic to precmd
