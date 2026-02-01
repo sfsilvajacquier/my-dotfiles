@@ -16,7 +16,7 @@ cask "visual-studio-code"
 cask "google-cloud-sdk"
 
 # Python Tools
-brew "jupyterlab"
+# Jupyter is installed in 'carp' venv via install.sh
 
 # VS Code Extensions
 vscode "ms-python.python"
