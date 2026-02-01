@@ -4,7 +4,7 @@ ZSH=$HOME/.oh-my-zsh
 # Disable default theme
 ZSH_THEME=""
 
-# Custom Prompt Logic (Red/White Circle)
+# Custom Prompt Logic (Red/White Circle + Python Env)
 # \u25cf is the circle character
 prompt_carp_setup() {
   # Red if error (!= 0), White if success (0)
@@ -13,7 +13,13 @@ prompt_carp_setup() {
   # Directory color
   local dir="%{$fg_bold[cyan]%}%c%{$reset_color%}"
   
-  PROMPT="${circle} ${dir} $(git_prompt_info)"
+  # Python Virtual Env (Snake + Name)
+  local venv=""
+  if [[ -n "$VIRTUAL_ENV" ]]; then
+    venv=" %{$fg[yellow]%}🐍 $(basename "$VIRTUAL_ENV")%{$reset_color%}"
+  fi
+  
+  PROMPT="${circle} ${dir}${venv} $(git_prompt_info)"
 }
 
 # Git prompt settings
